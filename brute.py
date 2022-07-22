@@ -407,7 +407,6 @@ def passnoword():
                     us: username,
                     ps: password
                 }
-                print(data)
                 r = requests.get(url, data=data)
                 return r
 
