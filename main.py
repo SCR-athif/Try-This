@@ -28,7 +28,6 @@ print("""
 
 4.PASSWORD BRUTE FORCE WITHOUT WORDLIST
 
-5.USERNAME BRUTE FORCE (WORDLIST NEEDED) 
 """)
 # Input Area
 try:
@@ -37,7 +36,9 @@ try:
         brute.otp()
     elif a == 2:
         brute.directory()
-    elif a == 5:
+    elif a == 3:
+        brute.passw()
+    elif a == 4:
         brute.passnoword()
     else:
         print(colored("\nWrong Entry Try Again", 'red'))
