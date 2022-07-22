@@ -46,7 +46,7 @@ try:
         system('./main.py')
 except ValueError:
     print(colored("\nPlease Enter correct data type", 'red'))
-    time.sleep(2)
+    time.sleep(1)
     system('./main.py')
 except KeyboardInterrupt:
     ex = input("\n\nDo you want to exit (y/n): ")
